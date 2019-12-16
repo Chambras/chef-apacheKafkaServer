@@ -2,6 +2,39 @@
 
 This cookbook provides resources for installing/configuring Apache Kafka and managing Apache Kafka service instances for use in wrapper cookbooks. Installs Apache Kafka from tarball and installs the appropriate configuration for your platform's init system. It also show how to use Test Kitchen in Azure in order to test your cookbook.
 
+## Project Structure
+
+```ssh
+.
+├── CHANGELOG.md
+├── LICENSE
+├── Policyfile.lock.json
+├── Policyfile.rb
+├── README.md
+├── attributes
+│   └── default.rb
+├── chefignore
+├── kitchen.yml
+├── metadata.rb
+├── recipes
+│   ├── Install.rb
+│   └── default.rb
+├── spec
+│   ├── spec_helper.rb
+│   └── unit
+│       └── recipes
+│           ├── Install_spec.rb
+│           └── default_spec.rb
+├── templates
+│   ├── kafka.service.erb
+│   └── zookeeper.service.erb
+└── test
+    └── integration
+        └── default
+            ├── Install_test.rb
+            └── default_test.rb
+```
+
 ## Requirements
 
 ### Platform Support
@@ -64,6 +97,30 @@ depends 'kafkaServer'
 
 #in your recipe
 include_recipe 'kafkaServer'
+```
+
+## Running Tests
+
+Run integration tests
+
+```ssh
+kitchen verify
+```
+
+Run unit tests.
+
+```ssh
+chef exec rspec --color
+```
+
+Static code analysis
+
+```ssh
+# foodcritic
+foodcritic .
+
+# Cookstyle
+cookstyle .
 ```
 
 ## Authors
